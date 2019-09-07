@@ -195,7 +195,7 @@ from V_AdminUserMenuList_v1 where Auth_User_num = '$user_num' and Auth_JSUSER_DW
             $Auth_User_num = $r[0]['Auth_User_num'];
             $token = JWTAuth::builder(['Auth_User_num' => $Auth_User_num]);
             return ['error'=>false,'result'=>['username'=>$username,'name'=>$r[0]['Auth_User_name'],'Auth_DW_id'=>$r[0]['Auth_DW_id'],'avatar'=>$r[0]['Auth_DW_logo'],
-                'status'=>1,'roleId'=>'admin','token'=>$token,'lang'=>'zh-CN']];
+                'status'=>1,'roleId'=>'admin','token'=>$token,'lang'=>'zh-CN','DWList'=>$r]];
         }
     }
     //查询管理端人员信息
@@ -203,9 +203,10 @@ from V_AdminUserMenuList_v1 where Auth_User_num = '$user_num' and Auth_JSUSER_DW
     {
         $data = $request->post();
         $usernum = $data['usernum'];
+        $dqdw = $data['dqdw'];
         if (JWTAuth::auth()){
-            $r = Db::query("select Auth_DW_name as 'dw', Auth_DW_logo as 'avatar', Auth_User_name as 'name', Auth_User_num as 'username' from V_AuthUserLogin where Auth_User_num ='$usernum'");
-            $r = array_merge($r,['roleId'=>'user']);
+            $r = Db::query("select Auth_DW_name as 'dw', Auth_DW_logo as 'avatar', Auth_User_name as 'name', Auth_User_num as 'username' from V_AuthUserLogin where Auth_User_num ='$usernum' and Auth_DW_id ='$dqdw'");
+            $r = array_merge($r[0],['roleId'=>'user']);
             return ['result'=>$r];
         }else{
             return ['result'=>[]];
