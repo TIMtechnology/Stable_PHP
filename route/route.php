@@ -29,3 +29,6 @@ route('api/v1/GetMenuData','login/Login/GetMenu');
 
 route('api/v1/AdminLogin','login/Login/AdminLogin');
 route('api/user/info','login/Login/currentUser');
+
+//权限接口
+route('api/v1/admin/UserList','admin/Auth/GetUserListByDwId');

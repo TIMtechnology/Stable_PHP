@@ -170,7 +170,9 @@ from V_AdminUserMenuList_v1 where Auth_User_num = '$user_num' and Auth_JSUSER_DW
                 $Auth_QX_icon = $val['Auth_QX_icon'];
                 $Auth_QX_show= $val['Auth_QX_show'];
                 //$child = [];
-
+                if($Auth_QX_show == 0){
+                    $Auth_QX_show = false;
+                }
 
                     //查询当前的子菜单
                 //$child = $this->gettree($user_num,$dqdw,$Auth_QX_id);
